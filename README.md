@@ -2,9 +2,9 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](https://www.cs.helsinki.fi)
-* [Linkki dokumentaatiooni](https://www.github.com)
+* [Linkki sovellukseeni](http://luupanu.users.cs.helsinki.fi/sampleManager/)
+* [Linkki dokumentaatiooni](doc/dokumentaatio.pdf)
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Pokemon-kanta.html) 
+Sam on www-sivulla toimiva samplemanageri. Sam sisältää äänitiedostoja, joille voi antaa erilaisia tageja, kommentteja ja nimiä. Sam auttaa käyttäjää löytämään isoistakin samplekirjastoista nopeasti kuhunkin tarkoitukseen tarvittavan samplen kuvaavien tagien avulla.
