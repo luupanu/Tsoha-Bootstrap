@@ -9,6 +9,7 @@ Sample Manager on www-sivulla toimiva [samplemanageri](https://en.wikipedia.org/
 ## Dokumentaatio
 
 * [PDF](doc/dokumentaatio.pdf)
+* [Järjestelmän tietosisältö](doc/jarjestelman_tietosisalto.pdf)
 * [Relaatiotietokantakaavio](doc/samplemanager_tables.png?raw=true)
 
 ## Suunnitellut sivut
