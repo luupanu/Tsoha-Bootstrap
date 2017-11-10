@@ -9,7 +9,7 @@ Sam on www-sivulla toimiva [samplemanageri](https://en.wikipedia.org/wiki/Sampli
 ## Dokumentaatio
 
 * [PDF](doc/dokumentaatio.pdf)
-* [Relaatiotietokantakaavio](doc/samplemanager_tables.png)
+* [Relaatiotietokantakaavio](doc/samplemanager_tables.png?raw=true)
 
 ## Suunnitellut sivut
 
