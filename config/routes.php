@@ -16,6 +16,19 @@
     HelloWorldController::register();
   });
 
-  $routes->get('/library', function() {
-  	HelloWorldController::sampleLibrary();
+  $routes->post('/register', function() {
+    ServiceUserController::store();
   });
+
+  $routes->get('/library', function() {
+  	SampleLibraryController::index();
+  });
+
+  $routes->get('/addsamples', function() {
+    HelloWorldController::addSamples();
+  });
+
+  $routes->post('/add', function() {
+    SampleLibraryController::store();
+  });
+

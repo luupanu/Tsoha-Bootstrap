@@ -4,7 +4,7 @@
 		<h1>My Sample Library</h1>
 	</div>
 	<form class="form-search">
-		<div class="input-group col-md-4">
+		<div class="input-group col-md-4" id="filter-bar">
 			<input type="text" class="form-control input-lg" placeholder="Filter results"/>
 			<div class="input-group-addon"><span class="glyphicon glyphicon-search"/></div>
 		</div>
@@ -12,8 +12,8 @@
 
 	<table class="table table-hover">
 		<thead>
-			<tr>
-				<th></th>
+			<tr id="table-header">
+				<!--<th></th>-->
 				<th>Filename</th>
 				<th>Name</th>
 				<th>Duration</th>
@@ -22,45 +22,32 @@
 				<th>Projects</th>
 			</tr>
 		</thead>
+		{% for sample in samples %}
 		<tbody>
-			<tr class="warning">
-				<td>
+			<tr id="table-row">
+				<!--<td>
 					<div class="input-group">
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm glyphicon glyphicon-play"/>
 						</span>
 					</div>
-				</td>
-				<td>sample1.wav</td>
-				<td>Tuulen tuhinaa</td>
-				<td>00:16</td>
-				<td><a href="#">#bass</a> <a href="#">#luonto</a></td>
-				<td>
-					<ul>
-						<li>Melekoisen tuulekasta.</li>
-					</ul>
-				</td>
-				<td><a href="#">megaprojekti</a></td>
-			</tr>
-			<tr class="success">
-				<td>
-					<div class="input-group">
-						<span class="input-group-btn">
-							<button class="btn btn-default btn-sm glyphicon glyphicon-play"/>
-						</span>
-					</div>
-				</td>
-				<td>sample2.wav</td>
-				<td>Hiiren kihinää</td>
-				<td>00:09</td>
-				<td><a href="#">#luonto</a></td>
-				<td>
-					<ul>
-						<li>Hiiri oli kyllä vihainen.</li>
-						<li>Tätä voisi käyttää myös projektissa Y.</li>
-					</ul>
-				</td>
-				<td><a href="#">megaprojekti</a></td>
+				</td>-->
+				<td>{{sample.filename}}</td>
+				<td contenteditable="true" class="editable">{{sample.name}}</td>
+				<td>{{sample.duration}}</td>
+				<!--{% for tag in tags %}-->
+				<!-- {{tag.name}} -->
+				<!-- {% endfor %} -->
+				<!-- {% for comment in comments %} -->
+				<!-- {{comment.comment}} -->
+				<!-- {% endfor %} -->
+				<!-- {% for project in projects %} -->
+				<!-- {{project.name}} -->
+				<!-- {% endfor %} -->
+				<td contenteditable="true" class="editable" id="tag"><a href="#">#tag</a></td>
+				<td contenteditable="true" class="editable" id="link">comment</td>
+				<td contenteditable="true" class="editable" id="project">project</td>
+				{% endfor %}
 			</tr>
 		</tbody>
 	</table>

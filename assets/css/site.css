@@ -12,3 +12,50 @@
 .alert {
   margin-top: 30px;
 }
+
+.table-add {
+  color: #0b0;
+}
+
+.glyphicon-plus {
+  top: 4px;
+  left: 4px;
+  font-size: 24px;
+}
+
+.table {
+  margin-top: 30px;
+}
+
+#filter-bar {
+  margin-top: 30px;
+}
+
+/*#table-row :nth-child(even) {
+  background-color: #EEE8AA;
+}
+
+#table-row :nth-child(odd) {
+  background-color: #EEE8AA;
+}*/
+
+#table-header {
+  background-color: #afdcaf;
+}
+
+.file-input {
+
+}
+
+.from-group.required .control-label:after {
+  color: #d00;
+  content: "*";
+  /*position: absolute;
+  margin-left: 8px;
+  top: 7px;*/
+}
+
+h3 {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
