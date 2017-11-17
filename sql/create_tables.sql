@@ -11,7 +11,7 @@ CREATE TABLE Sample(
 	serviceuser_id INTEGER REFERENCES ServiceUser(id),
 	filename varchar(50) NOT NULL,
 	name varchar(50),
-	duration INTEGER
+	duration DECIMAL(6,2)
 );
 
 CREATE TABLE Tag(
