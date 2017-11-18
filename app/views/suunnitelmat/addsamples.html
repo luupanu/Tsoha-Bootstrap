@@ -20,20 +20,17 @@
     <h1>Add a single sample</h1>
   </div>
 
-<!-- not sanitized yet -->
-  <div class="form-group required">
-    <label class="control-label">Filename</label> 
+  <div class="form-group">
+    <label class="control-label required">Filename</label> 
       <input type="text" name="filename" class="form-control" required="true">
   </div>
-    <div class="form-group required">
-    <label class="control-label">Duration</label>
-    <input type="number" step="any" min="0" name="duration" class="form-control" required="true">
-  </div>
-  <!-- -->
-
   <div class="form-group">
-    <label class="control-label">Name (optional)</label>
+    <label class="control-label">Name <span class="i">(optional)</span></label>
     <input name="name" class="form-control">
+  </div>
+  <div class="form-group">
+    <label class="control-label required">Duration <span class="i">(seconds)</span></label>
+    <input type="number" step="any" min="0" max="9999" name="duration" class="form-control" required="true">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
