@@ -13,26 +13,30 @@
 	<table class="table table-hover">
 		<thead>
 			<tr id="table-header">
-				<!--<th></th>-->
+				<th></th>
 				<th>Filename</th>
 				<th>Name</th>
 				<th>Duration</th>
 				<th>Tags</th>
 				<th>Comments</th>
 				<th>Projects</th>
+				<th></th>
 			</tr>
 		</thead>
 		{% for sample in samples %}
 		<tbody>
 			<tr id="table-row">
-				<!--<td>
-					<div class="input-group">
+				<td></td>
+				<!--<td id="table-arrow">
+					<span class="glyphicon glyphicon-play"></span>
+				</td>-->
+					<!--<div class="input-group">
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-sm glyphicon glyphicon-play"/>
 						</span>
 					</div>
 				</td>-->
-				<td>{{sample.filename}}</td>
+				<td id="table-left">{{sample.filename}}</td>
 				<td contenteditable="true" class="editable">{{sample.name}}</td>
 				<td>{{sample.duration}} s</td>
 				<!--{% for tag in tags %}-->
@@ -46,7 +50,12 @@
 				<!-- {% endfor %} -->
 				<td contenteditable="true" class="editable" id="tag"><a href="#">#tag</a></td>
 				<td contenteditable="true" class="editable" id="link">comment</td>
-				<td contenteditable="true" class="editable" id="project">project</td>
+				<td contenteditable="true" class="editable" id="project"><a href="#">project</a></td>
+				<td>
+					<span class="input-group-btn">
+						<button class="btn btn-xs btn-xs-diff glyphicon glyphicon-trash"/>
+					</span>
+				</td>
 				{% endfor %}
 			</tr>
 		</tbody>
