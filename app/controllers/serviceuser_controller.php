@@ -18,7 +18,7 @@
       Redirect::to('/library');
       }
     }
-
+    // replace this with js when there's time
     public static function alert() {
       $msg = "The passwords don't match!";
       echo '<script>alert("' . $msg . '")</script>';
