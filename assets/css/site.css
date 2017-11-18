@@ -17,19 +17,38 @@
   color: #0b0;
 }
 
-.glyphicon-plus {
-  top: 4px;
-  left: 4px;
-  font-size: 24px;
+.btn-xs-diff{
+  background-color: white;
+}
+
+.btn-xs-diff:hover{
+  outline: red solid medium;
 }
 
 .table {
   margin-top: 30px;
 }
 
+/*.glyphicon-play {
+  font-size: 10px;
+  color: #EEE8AA;
+}
+
+#table-arrow {
+  opacity: 0;
+}
+
+#table-arrow:hover {
+  opacity: 1;
+}*/
+
 #filter-bar {
   margin-top: 30px;
 }
+
+/*#table-left {
+  background: linear-gradient(to right, #EEE8AA, white);
+}*/
 
 /*#table-row :nth-child(even) {
   background-color: #EEE8AA;
@@ -47,15 +66,21 @@
 
 }
 
-.from-group.required .control-label:after {
+.control-label.required:after {
   color: #d00;
   content: "*";
-  /*position: absolute;
-  margin-left: 8px;
-  top: 7px;*/
+  font-size: 16px;
+  position: absolute;
+  margin-left: 2px;
+  /*top: 7px;*/
 }
 
 h3 {
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.i {
+  font-weight: normal;
+  /*font-style: italic;*/
 }
