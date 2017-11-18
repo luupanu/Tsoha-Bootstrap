@@ -1,13 +1,29 @@
 // disable paste on editables
 $('.editable').on('paste', function(e){
-    e.preventDefault();
-  });
-// don't allow more than 50 chars on editables
-$('.editable').on('keydown', function(e){
-  if($(this).text().length >= 50 && e.keyCode != 8) {
+  var paste = e.originalEvent.clipboardData.getData('text');
+  var sel = window.getSelection().toString();
+  if (paste.length + $(this).text().length - sel.length > 50) {
     e.preventDefault();
   }
-})
+});
+// disable drag&drop paste on editables
+$('.editable').on('drop', function(e){
+    e.preventDefault();
+});
+// don't allow more than 50 chars on editables
+$('.editable').on('keydown', function(e){
+  if($(this).text().length >= 50
+      // unless it's backspace, tab, enter, escape, del
+      && ($.inArray(e.keyCode, [8, 9, 13, 27, 46]) == -1)
+      // or function keys
+      && (e.keyCode < 112 || e.keyCode > 123)
+      // or alt, ctrl & cmd
+      && !e.altKey && !e.ctrlKey && !e.metaKey)
+      // prevent rest
+  {
+    e.preventDefault(); 
+  }
+});
 // leave focus when user presses enter
 $('.editable').keypress(function(e){
   if (e.which === 13){
@@ -20,8 +36,8 @@ $('input[id=jsonUpload]').click(function(e){
   myFile = e.target.files[0];
   console.log(myFile);
 });
-// remove hashtags when clicked
-$('.editable').click(function (){
+// remove hashtags when focused
+$('.editable').focus(function (){
   this.innerText = this.innerText.replace(/#+/g, '');
 });
 // handle strings in editables
@@ -53,7 +69,6 @@ $('.editable').blur(function (){
 });
 
 function surroundWithTag(tag, attribute, value, array, char){
-  console.log(array);
   var startBracket = '<' + tag + ' ' + attribute + '="' + value + '"' + '>';
   var endBracket = '</' + tag + '> ';
   var result = array.join(endBracket + startBracket + char);
