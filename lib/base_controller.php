@@ -17,4 +17,9 @@
       }
     }
 
+    public static function check_logged_out(){
+      if (isset($_SESSION['user'])){
+        Redirect::to('/');
+      }
+    }
   }

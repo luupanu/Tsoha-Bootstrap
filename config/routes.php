@@ -1,5 +1,13 @@
 <?php
 
+function check_logged_in(){
+  BaseController::check_logged_in();
+}
+
+$routes->get('/', 'check_logged_in', function() {
+  SampleLibraryController::index();
+});
+
 $routes->get('/', function() {
   ServiceUserController::login();
 });
@@ -14,6 +22,10 @@ $routes->get('/login', function() {
 
 $routes->post('/login', function() {
   ServiceUserController::handle_login();
+});
+
+$routes->post('/logout', function(){
+  ServiceUserController::logout();
 });
 
 $routes->get('/register', function() {

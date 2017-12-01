@@ -6,6 +6,7 @@
 
   	public function __construct($attributes){
   		parent::__construct($attributes);
+      $this->validators = ['validate'];
   	}
 
   	public static function authenticate($name, $password){
@@ -57,5 +58,7 @@
       $v->rule('required', ['name', 'password']);
       $v->rule('lengthBetween', 'name', 2, 16);
       $v->rule('lengthBetween', 'password', 6, 50);
+      $v->validate();
+      return $v->errors();
     }
   }

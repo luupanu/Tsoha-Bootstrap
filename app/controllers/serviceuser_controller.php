@@ -1,50 +1,61 @@
 <?php
 
-  class ServiceUserController extends BaseController{
-  
-    public static function handle_login() {
-      $params = $_POST;
+class ServiceUserController extends BaseController{
 
-      $serviceuser = ServiceUser::authenticate($params['username'], $params['password']);
+  public static function handle_login() {
+    self::check_logged_out();
+    $params = $_POST;
 
-      if (!$serviceuser){
-        View::make('suunnitelmat/login.html', array('error' => "Wrong username or password.",
-          'username' => $params['username']));
-      } else {
-        $_SESSION['user'] = $serviceuser->id;
+    $serviceuser = ServiceUser::authenticate($params['username'], $params['password']);
 
-        Redirect::to('/library', array('message' => 'Welcome back ' . 
-          $serviceuser->name . '!'));
-      }
+    if (!$serviceuser){
+      View::make('suunnitelmat/login.html', array('error' => "Wrong username or password.",
+        'username' => $params['username']));
+    } else {
+      $_SESSION['user'] = $serviceuser->id;
+
+      Redirect::to('/library', array('message' => 'Welcome back ' . 
+        $serviceuser->name . '!'));
     }
+  }
 
-    public static function login() {
-      View::make('suunnitelmat/login.html');
-    }
+  public static function login() {
+    self::check_logged_out();
+    View::make('suunnitelmat/login.html');
+  }
 
-    public static function register() {
-      View::make('suunnitelmat/register.html');
-    }
+  public static function logout() {
+    $_SESSION['user'] = null;
+    Redirect::to('/login', array());
+  }
 
-    public static function store(){
-      $params = $_POST;
+  public static function register() {
+    self::check_logged_out();
+    View::make('suunnitelmat/register.html');
+  }
 
-      if ($params['password2'] !== $params['password']){
-        return self::alert();
-      } else {
+  public static function store(){
+    self::check_logged_out();
+    $params = $_POST;
 
-      $serviceuser = new ServiceUser(array(
-      'name' => $params['name'],
+
+    $serviceuser = new ServiceUser(array(
+      'name' => $params['username'],
       'password' => $params['password']));
 
-      $serviceuser->save();
+    $serviceuser->validate();
+    $errors = $serviceuser->errors();
 
+    if ($params['password2'] !== $params['password']){
+      $errors[] = "The passwords don't match";
+    }
+
+    if (count($errors) > 0){
+      View::make('suunnitelmat/register.html', array('errors' => $errors,
+        'username' => $params['username']));
+    } else {
+      $serviceuser->save();
       Redirect::to('/library');
-      }
     }
-    // replace this with js when there's time
-    public static function alert() {
-      $msg = "The passwords don't match!";
-      echo '<script>alert("' . $msg . '")</script>';
-    }
+  }
 }
