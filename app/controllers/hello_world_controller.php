@@ -15,8 +15,6 @@
       $samples = Sample::all();
       $tags = Tag::all();
       $projects = Project::all();
-      $comments = Comment::all();
-      $commentsById = Comment::findAllCommentsBySampleId('2');
       $tagsById = SampleTag::findAllTagsBySampleId('2');
       $projectsById = ProjectSample::findAllProjectsBySampleId('1');
       
@@ -31,8 +29,6 @@
       Kint::dump($fakeuser);
       Kint::dump($tags);
       Kint::dump($projects);
-      Kint::dump($comments);
-      Kint::dump($commentsById);
       Kint::dump($tagsById);
       Kint::dump($projectsById);
       //View::make('helloworld.html');

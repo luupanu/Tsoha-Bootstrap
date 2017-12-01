@@ -9,7 +9,7 @@
     }
 
     public static function findAllTagsBySampleId($id){
-      $query = DB::connection()->prepare('SELECT * FROM Tag, SampleTag WHERE SampleTag.sample_id = :id AND SampleTag.tag_name = Tag.name');
+      $query = DB::connection()->prepare('SELECT * FROM Tag, SampleTag WHERE SampleTag.sample_id = :id AND SampleTag.tag_id = Tag.id');
       $query->execute(array('id' => $id));
       $rows = $query->fetchAll();
       $tags = array();

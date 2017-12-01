@@ -26,15 +26,15 @@
   	}
 
     public static function find($id){
-      $query = DB::connection()->prepare('SELECT * FROM ServiceUser WHERE id = :id');
+      $query = DB::connection()->prepare('SELECT * FROM ServiceUser WHERE id = :id LIMIT 1');
       $query->execute(array('id' -> $id));
       $row = $query->fetch();
       if ($row){
         $serviceuser = new ServiceUser(array(
-          $id -> $row['id'],
-          $name -> $row['name'],
-          $password -> $row['password'],
-          $superuser -> $row['superuser']));
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'password' => $row['password'],
+          'superuser' => $row['superuser']));
         return $serviceuser;
       }
       return null;

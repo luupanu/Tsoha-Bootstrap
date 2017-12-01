@@ -9,32 +9,36 @@ CREATE TABLE ServiceUser(
 CREATE TABLE Sample(
 	id SERIAL PRIMARY KEY,
 	serviceuser_id INTEGER REFERENCES ServiceUser(id),
-	filename varchar(50) NOT NULL,
+	filename varchar(50) NOT NULL UNIQUE,
 	name varchar(50),
-	duration DECIMAL(6,2)
+	duration DECIMAL(6,2) NOT NULL,
+	comment varchar(140)
 );
 
 CREATE TABLE Tag(
-	name varchar(50) PRIMARY KEY
+	id SERIAL PRIMARY KEY,
+	name varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE SampleTag(
-	sample_id INTEGER REFERENCES Sample(id),
-	tag_name varchar(50) REFERENCES Tag(name)
+	sample_id INTEGER NOT NULL REFERENCES Sample(id) ON DELETE CASCADE,
+	tag_id INTEGER NOT NULL REFERENCES Tag(id) ON DELETE CASCADE,
+	PRIMARY KEY(sample_id, tag_id)
 );
 
 CREATE TABLE Project(
 	id SERIAL PRIMARY KEY,
-	name varchar(50) NOT NULL
+	name varchar(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE ProjectSample(
-	project_id INTEGER REFERENCES Project(id),
-	sample_id INTEGER REFERENCES Sample(id)
+	sample_id INTEGER NOT NULL REFERENCES Sample(id) ON DELETE CASCADE,
+	project_id INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE,
+	PRIMARY KEY(sample_id, project_id)
 );
 
-CREATE TABLE Comment(
+/*CREATE TABLE Comment(
 	id SERIAL PRIMARY KEY,
 	sample_id INTEGER REFERENCES Sample(id),
 	comment varchar(140) NOT NULL
-);
+);*/
