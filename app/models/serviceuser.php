@@ -9,7 +9,10 @@
   	}
 
   	public static function authenticate($name, $password){
-  		$query = DB::connection()->prepare('SELECT * FROM ServiceUser WHERE name = :name AND password = :password LIMIT 1');
+  		$query = DB::connection()->prepare('
+        SELECT * FROM ServiceUser
+        WHERE name = :name AND password = :password
+        LIMIT 1');
   		$query->execute(array('name' => $name, 'password' => $password));
   		$row = $query->fetch();
 
@@ -27,7 +30,7 @@
 
     public static function find($id){
       $query = DB::connection()->prepare('SELECT * FROM ServiceUser WHERE id = :id LIMIT 1');
-      $query->execute(array('id' -> $id));
+      $query->execute(array('id' => $id));
       $row = $query->fetch();
       if ($row){
         $serviceuser = new ServiceUser(array(
@@ -46,8 +49,13 @@
         'name' => $this->name,
         'password' => $this->password));
       $row = $query->fetch();
-      Kint::trace();
-      Kint::dump($row);
       $this->id = $row['id'];
+    }
+
+    public function validate(){
+      $v = new Valitron\Validator(get_object_vars($this));
+      $v->rule('required', ['name', 'password']);
+      $v->rule('lengthBetween', 'name', 2, 16);
+      $v->rule('lengthBetween', 'password', 6, 50);
     }
   }

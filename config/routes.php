@@ -1,7 +1,7 @@
 <?php
 
 $routes->get('/', function() {
-  HelloWorldController::login();
+  ServiceUserController::login();
 });
 
 $routes->get('/hiekkalaatikko', function() {
@@ -9,11 +9,15 @@ $routes->get('/hiekkalaatikko', function() {
 });
 
 $routes->get('/login', function() {
-  HelloWorldController::login();
+  ServiceUserController::login();
+});
+
+$routes->post('/login', function() {
+  ServiceUserController::handle_login();
 });
 
 $routes->get('/register', function() {
-  HelloWorldController::register();
+  ServiceUserController::register();
 });
 
 $routes->post('/register', function() {
@@ -25,7 +29,7 @@ $routes->get('/library', function() {
 });
 
 $routes->get('/addsamples', function() {
-  HelloWorldController::addSamples();
+  SampleLibraryController::addSamples();
 });
 
 $routes->post('/sample/add', function() {

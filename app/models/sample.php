@@ -15,7 +15,7 @@ class Sample extends BaseModel{
     $this->validators = ['validate'];
 	}
 
-	public static function all(){
+	public static function all($serviceuser_id){
 		$query = DB::connection()->prepare('
       SELECT Sample.id, Sample.serviceuser_id, Sample.filename, Sample.name, Sample.duration, Sample.comment, Tag.name AS tag_name, Project.name AS project_name
       FROM Sample
@@ -23,8 +23,9 @@ class Sample extends BaseModel{
       LEFT JOIN Tag ON SampleTag.tag_id = Tag.id
       LEFT JOIN ProjectSample ON ProjectSample.sample_id = Sample.id
       LEFT JOIN Project ON ProjectSample.project_id = Project.id
+      WHERE Sample.serviceuser_id = :serviceuser_id
       ORDER BY Sample.filename ASC, Tag.name ASC, Project.name ASC');
-		$query->execute();
+		$query->execute(array('serviceuser_id' => $serviceuser_id));
 		$rows = $query->fetchAll();
 
 		return self::createSamplesFromRows($rows);
@@ -119,8 +120,8 @@ class Sample extends BaseModel{
 
   public function validate(){
     $v = new Valitron\Validator(get_object_vars($this));
-    $v->rule('required', ['id', 'serviceuser_id', 'filename', 'duration']);
-    $v->rule('integer', ['id', 'serviceuser_id']);
+    $v->rule('required', ['serviceuser_id', 'filename', 'duration']);
+    $v->rule('integer', 'serviceuser_id');
     $v->rule('numeric', 'duration');
     $v->rule('array', ['tags', 'projects']);
     $v->rule('lengthBetween', ['filename', 'name', 'tags.*', 'projects.*'], 0, 50);

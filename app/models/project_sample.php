@@ -8,18 +8,23 @@
       parent::__construct($attributes);
     }
 
-    public static function findAllProjectsBySampleId($id){
-      $query = DB::connection()->prepare('SELECT * FROM Project, ProjectSample WHERE ProjectSample.sample_id = :id AND ProjectSample.project_id = Project.id');
-      $query->execute(array('id' => $id));
-      $rows = $query->fetchAll();
-      $projects = array();
+    public static function destroy($project_ids, $sample_id){
+      $query = DB::connection()->prepare('
+      DELETE FROM ProjectSample
+      WHERE project_id NOT IN ('
+        . implode(', ', $project_ids)
+        . ')' .
+      'AND sample_id = :sample_id');
+      $query->execute(array('sample_id' => $sample_id));
+    }
 
-      foreach ($projects as $project){
-        $projects[] = new Project(array(
-          'id' => $rows['id'],
-          'name' => $rows['name']
-        ));
-      }
-      return $projects;
+    public static function save($project_ids, $sample_id){
+      $query = DB::connection()->prepare('
+        INSERT INTO ProjectSample (sample_id, project_id)
+        VALUES (:sample_id, '
+          . implode('), (:sample_id, ', $project_ids)
+          . ')' .
+          'ON CONFLICT DO NOTHING');
+      $query->execute(array('sample_id' => $sample_id));
     }
   }

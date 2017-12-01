@@ -2,31 +2,43 @@
 
 class SampleLibraryController extends BaseController{
 	public static function index(){
-		$samples = Sample::all();
+		$samples = Sample::all(self::get_user_logged_in()->id);
     View::make('suunnitelmat/samplelibrary.html', array('samples' => $samples));
 	}
 
+  public static function addSamples() {
+      View::make('suunnitelmat/addsamples.html');
+    }
+
   public static function destroy($id){
-    /*$sample = new Sample(['id' => $id]);
-    $sample->destroy();*/
+    $sample = Sample::find($id);
+    $sample->destroy();
+    Tag::destroy($sample->tags, $id);
+    Project::destroy($sample->projects, $id);
+
+    Redirect::to('/library', array('message' => 'Sample removed successfully!'));
   }
 
   public static function store(){
     $params = $_POST;
-
-    $duration = filter_var($params['duration'], FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
-
-    if ($duration > 9999 || $duration < 0) return;
+    $serviceuser_id = self::get_user_logged_in()->id;
 
     $sample = new Sample(array(
-      'serviceuser_id' => '1',
+      'serviceuser_id' => $serviceuser_id,
       'filename' => $params['filename'],
       'name' => $params['name'],
-      'duration' => $duration));
+      'duration' => $params['duration']));
 
-    $sample->save();
+    $sample->validate();
 
-    Redirect::to('/library');
+    $errors = $sample->errors();
+
+    if(count($errors) > 0){
+      View::make('suunnitelmat/addsamples.html', array('errors' => $errors));
+    } else {
+      $sample->save();
+      Redirect::to('/library');
+    }
   }
 
   public static function update($id){
@@ -48,11 +60,11 @@ class SampleLibraryController extends BaseController{
     $errors = $sample->errors();
 
     if(count($errors) > 0){
-      $samples = Sample::all();
+      $samples = Sample::all(self::get_user_logged_in()->id);
       View::make('suunnitelmat/samplelibrary.html', array('samples' => $samples, 'errors' => $errors));
     } else {
       $sample->update();
-      Redirect::to('/library', array('message' => 'Update successful!'));
+      Redirect::to('/library', array('message' => 'Sample updated successfully!'));
     }
   }
 }

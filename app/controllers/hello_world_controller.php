@@ -33,20 +33,9 @@
       Kint::dump($projectsById);
       //View::make('helloworld.html');
     }
-
-    public static function login() {
-      View::make('suunnitelmat/login.html');
-    }
-
-    public static function register() {
-      View::make('suunnitelmat/register.html');
-    }
+    
 
     public static function sampleLibrary() {
       View::make('suunnitelmat/samplelibrary.html');
-    }
-
-    public static function addSamples() {
-      View::make('suunnitelmat/addsamples.html');
     }
   }
