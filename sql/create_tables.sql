@@ -9,7 +9,7 @@ CREATE TABLE ServiceUser(
 CREATE TABLE Sample(
 	id SERIAL PRIMARY KEY,
 	serviceuser_id INTEGER REFERENCES ServiceUser(id),
-	filename varchar(50) NOT NULL UNIQUE,
+	filename varchar(260) NOT NULL UNIQUE,
 	name varchar(50),
 	duration DECIMAL(6,2) NOT NULL,
 	comment varchar(140)

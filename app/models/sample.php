@@ -124,7 +124,8 @@ class Sample extends BaseModel{
     $v->rule('integer', 'serviceuser_id');
     $v->rule('numeric', 'duration');
     $v->rule('array', ['tags', 'projects']);
-    $v->rule('lengthBetween', ['filename', 'name', 'tags.*', 'projects.*'], 0, 50);
+    $v->rule('lengthBetween', ['name', 'tags.*', 'projects.*'], 0, 50);
+    $v->rule('lengthBetween', 'filename', 1, 260);
     $v->rule('lengthBetween', 'comment', 0, 140);
     $v->rule('min', 'duration', '0');
     $v->rule('max', 'duration', '9999');
