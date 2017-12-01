@@ -27,8 +27,7 @@ class Tag extends BaseModel{
     /*  first delete references to tags from this $sample_id
         that were NOT in the tags updated */
     $query_count = DB::connection()->prepare('
-      DELETE
-      FROM SampleTag
+      DELETE FROM SampleTag
       WHERE tag_id NOT IN ('
         . implode(', ', $tag_ids)
         . ')' .

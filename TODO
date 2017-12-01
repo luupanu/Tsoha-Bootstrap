@@ -1,5 +1,0 @@
-TODO:
-  update()
-    - even if no new tags, check if this sampleId doesn't have the tag
-    - if no tag, remove it
-    - update(tags) -> projects

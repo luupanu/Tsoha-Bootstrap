@@ -30,12 +30,16 @@ class Sample extends BaseModel{
 		return self::createSamplesFromRows($rows);
 	}
 
-  public static function destroy(){
-    
+  public function destroy(){
+    $query = DB::connection()->prepare('
+      DELETE FROM Sample
+      WHERE Sample.id = :id');
+    $query->execute(array('id' => $this->id));
   }
 
 	public static function find($id){
-		$query = DB::connection()->prepare('SELECT Sample.id, Sample.serviceuser_id, Sample.filename, Sample.name, Sample.duration, Sample.comment, Tag.name AS tag_name, Project.name AS project_name
+		$query = DB::connection()->prepare('
+      SELECT Sample.id, Sample.serviceuser_id, Sample.filename, Sample.name, Sample.duration, Sample.comment, Tag.name AS tag_name, Project.name AS project_name
       FROM Sample
       LEFT JOIN SampleTag ON SampleTag.sample_id = Sample.id
       LEFT JOIN Tag ON SampleTag.tag_id = Tag.id
@@ -45,7 +49,8 @@ class Sample extends BaseModel{
 		$query->execute(array('id' => $id));
 		$rows = $query->fetchAll();
 
-    return self::createSamplesFromRows($rows);
+    $sample = self::createSamplesFromRows($rows);
+    return array_pop($sample);
 	}
 
   public function save(){
@@ -109,7 +114,6 @@ class Sample extends BaseModel{
         $sample->projects[] = $project_name;
       }
     }
-    if (count($samples) <= 1) return $sample;
     return $samples;
   }
 

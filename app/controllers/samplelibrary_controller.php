@@ -7,8 +7,8 @@ class SampleLibraryController extends BaseController{
 	}
 
   public static function destroy($id){
-    $sample = new Sample(['id' => $id]);
-    $sample->destroy();
+    /*$sample = new Sample(['id' => $id]);
+    $sample->destroy();*/
   }
 
   public static function store(){
