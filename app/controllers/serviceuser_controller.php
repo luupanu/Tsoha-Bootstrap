@@ -25,8 +25,14 @@ class ServiceUserController extends BaseController{
   }
 
   public static function logout() {
+    self::check_logged_in();
     $_SESSION['user'] = null;
     Redirect::to('/login', array());
+  }
+
+  public static function profile() {
+    self::check_logged_in();
+    View::make('/profile.html');
   }
 
   public static function register() {

@@ -28,6 +28,10 @@ $routes->post('/logout', function(){
   ServiceUserController::logout();
 });
 
+$routes->get('/profile', function() {
+  ServiceUserController::register();
+});
+
 $routes->get('/register', function() {
   ServiceUserController::register();
 });
@@ -55,4 +59,3 @@ $routes->post('/sample/:id/edit', function($id) {
 $routes->post('/sample/:id/destroy', function($id) {
   SampleLibraryController::destroy($id);
 });
-

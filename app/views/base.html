@@ -45,7 +45,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user_logged_in %}
-              <li><a href="myprofile">Logged in as <b>{{user_logged_in.name}}</b></a></li>
+              <li><a href="profile">Logged in as <b>{{user_logged_in.name}}</b></a></li>
               <li>
                 <form class="navbar-form" method="post" action="{{base_path}}/logout">
                   <button type="submit" class="btn btn-primary">Log out</button>
