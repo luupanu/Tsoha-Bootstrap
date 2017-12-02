@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 	<div class="page-header">
-		<h1>My Sample Library</h1>
+		<h1>My sample library</h1>
 	</div>
 	<!--{% if message %}
 		<div class="alert alert-success">
@@ -51,13 +51,14 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	<!--{% if message %}
+	<p><b><i>Click on the table cells to edit!</i></b></p>
+	{% if message %}
 		<div class="alert alert-success">
 			<ul>
 				<li>{{message}}</li>
 			</ul>
 		</div>
-	{% endif %}-->
+	{% endif %}
 	{% if errors %}
     <div class="alert alert-danger">
       <ul>
@@ -67,6 +68,7 @@
       </ul>
     </div>
   {% endif %}
+  <!--
 	<div class="bg-secondary">
 		<ul>
 			<li>Tämä sivu toimii myös etusivuna mikäli käyttäjä on kirjautunut sisään.</li>
@@ -76,6 +78,7 @@
 			<li>Jos mahdollista/aikaa riittää, käyttäjä voi itse raahata sarakkeet eri järjestykseen?</li>
 		</ul>
 	</div>
+	-->
 	<form method="post" action="{{base_path}}/sample/id/edit" id="sample-edit">
 		<input type="hidden" name="" value="" id="parameter">
 		<input type="submit" class="hidden">
