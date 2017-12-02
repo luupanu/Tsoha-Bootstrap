@@ -22,4 +22,8 @@
         Redirect::to('/');
       }
     }
+
+    public static function get_current_page(){
+      return $this->getRequest()->getRequestUri();
+    }
   }

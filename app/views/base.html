@@ -22,7 +22,7 @@
 
   <body>
 
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-inverse bg-inverse" role="navigation">
       <div class="container-fluid">
 
         <div class="navbar-header">
@@ -38,26 +38,28 @@
 
         <div class="navbar-collapse collapse" id="navigation">
           <ul class="nav navbar-nav">
-            <li><a href="library">My Sample Library</a></li>
-            <li><a href="add">Add samples...</a></li>
+            {% if user_logged_in %}
+              <li><a href="library">My Sample Library</a></li>
+              <li><a href="add">Add samples...</a></li>
+            {% endif %}
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user_logged_in %}
               <li><a href="myprofile">Logged in as <b>{{user_logged_in.name}}</b></a></li>
               <li>
                 <form class="navbar-form" method="post" action="{{base_path}}/logout">
-                  <button type="submit" class="btn btn-primary">Logout</button>
+                  <button type="submit" class="btn btn-primary">Log out</button>
                 </form>
               </li>
             {% else %}
               <li>
-                <form class="navbar-form" method="get" action="{{base_path}}/login">
-                  <button type="submit" class="btn btn-success">Login</button>
+                <form class="navbar-form">
+                  <a href="login" class="btn btn-success">Log in</a>
                 </form>
               </li>
               <li>
-                <form class="navbar-form" method="get" action="{{base_path}}/register">
-                  <button type="submit" class="btn btn-danger">Register</button>
+                <form class="navbar-form"">
+                  <a href="register" class="btn btn-danger">Register</a>
                 </form>
               </li>
             {% endif %}

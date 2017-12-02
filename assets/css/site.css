@@ -9,6 +9,10 @@
   margin: 0px auto;
 }
 
+.navbar-nav {
+  text-align: center;
+}
+
 .alert {
   margin-top: 30px;
 }
