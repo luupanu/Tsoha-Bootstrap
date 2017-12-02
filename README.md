@@ -1,6 +1,6 @@
 # Sample Manager
 
-[Linkki sovellukseen](http://luupanu.users.cs.helsinki.fi/sampleManager/)
+[Linkki sovellukseen](https://luupanu.users.cs.helsinki.fi/sampleManager/)
 
 ## Työn aihe
 
@@ -14,5 +14,14 @@ Sample Manager on www-sivulla toimiva [samplemanageri](https://en.wikipedia.org/
 
 ## Suunnitellut sivut
 
-* [Etusivu](http://luupanu.users.cs.helsinki.fi/sampleManager/)
-* [Listaus/muokkaussivu](http://luupanu.users.cs.helsinki.fi/sampleManager/library)
+* [Etusivu](https://luupanu.users.cs.helsinki.fi/sampleManager/)
+* [Kirjautumissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/login)
+* [Rekisteröitymissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/register)
+* [Listaus/muokkaussivu](https://luupanu.users.cs.helsinki.fi/sampleManager/library)
+* [Lisäämissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/add)
+* [Käyttäjäsivu](https://luupanu.users.cs.helsinki.fi/sampleManager/profile)
+
+## Testaus
+
+* Ohjelmaa voi testata käyttäjänimellä 'MikkoMies', salasana 'zalazana'.
+* Voit lisäksi tehdä oman käyttäjän rekisteröitymissivulla.

@@ -30,7 +30,10 @@
   	}
 
     public static function find($id){
-      $query = DB::connection()->prepare('SELECT * FROM ServiceUser WHERE id = :id LIMIT 1');
+      $query = DB::connection()->prepare(
+        'SELECT * FROM ServiceUser
+        WHERE id = :id
+        LIMIT 1');
       $query->execute(array('id' => $id));
       $row = $query->fetch();
       if ($row){
@@ -45,12 +48,28 @@
     }
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO ServiceUser (name, password) VALUES (:name, :password) RETURNING id');
+      $query = DB::connection()->prepare('
+        INSERT INTO ServiceUser (name, password)
+        VALUES (:name, :password)
+        RETURNING id');
       $query->execute(array(
         'name' => $this->name,
         'password' => $this->password));
       $row = $query->fetch();
       $this->id = $row['id'];
+    }
+
+    public function update(){
+      $query = DB::connection()->prepare('
+        UPDATE ServiceUser
+        SET id = :id, name = :name, password = :password, superuser = :superuser
+        WHERE id = :id');
+      $query->execute(array(
+        'id' => $this->id,
+        'name' => $this->name,
+        'password' => $this->password,
+        'superuser' => $this->superuser,
+      ));
     }
 
     public function validate(){

@@ -4,7 +4,7 @@ class SampleLibraryController extends BaseController{
 	public static function index(){
     self::check_logged_in();
     $samples = Sample::all(self::get_user_logged_in()->id);
-    View::make('/samplelibrary.html', array('samples' => $samples));
+    View::make('/library.html', array('samples' => $samples));
 	}
 
   public static function add() {
@@ -66,7 +66,7 @@ class SampleLibraryController extends BaseController{
 
     if(count($errors) > 0){
       $samples = Sample::all(self::get_user_logged_in()->id);
-      View::make('/samplelibrary.html', array('samples' => $samples, 'errors' => $errors));
+      View::make('/library.html', array('samples' => $samples, 'errors' => $errors));
     } else {
       $sample->update();
       Redirect::to('/library', array('message' => 'Sample updated successfully!'));

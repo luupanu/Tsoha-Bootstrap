@@ -29,7 +29,11 @@ $routes->post('/logout', function(){
 });
 
 $routes->get('/profile', function() {
-  ServiceUserController::register();
+  ServiceUserController::profile();
+});
+
+$routes->post('/profile', function() {
+  ServiceUserController::update();
 });
 
 $routes->get('/register', function() {

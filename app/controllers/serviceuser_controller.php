@@ -9,7 +9,7 @@ class ServiceUserController extends BaseController{
     $serviceuser = ServiceUser::authenticate($params['username'], $params['password']);
 
     if (!$serviceuser){
-      View::make('/login.html', array('error' => "Wrong username or password.",
+      View::make('/login.html', array('error' => 'Wrong username or password.',
         'username' => $params['username']));
     } else {
       $_SESSION['user'] = $serviceuser->id;
@@ -44,7 +44,6 @@ class ServiceUserController extends BaseController{
     self::check_logged_out();
     $params = $_POST;
 
-
     $serviceuser = new ServiceUser(array(
       'name' => $params['username'],
       'password' => $params['password']));
@@ -53,7 +52,7 @@ class ServiceUserController extends BaseController{
     $errors = $serviceuser->errors();
 
     if ($params['password2'] !== $params['password']){
-      $errors[] = "The passwords don't match";
+      $errors[] = 'The passwords don\'t match';
     }
 
     if (count($errors) > 0){
@@ -62,6 +61,38 @@ class ServiceUserController extends BaseController{
     } else {
       $serviceuser->save();
       Redirect::to('/library');
+    }
+  }
+
+  public static function update(){
+    self::check_logged_in();
+    $params = $_POST;
+    $id = self::get_user_logged_in()->id;
+    
+    $serviceuser_old = ServiceUser::find($id);
+
+    $serviceuser = new ServiceUser(array(
+      'id' => $id,
+      'name' => $serviceuser_old->name,
+      'password' => $params['password'],
+      'superuser' => $serviceuser_old->superuser));
+
+    $serviceuser->validate();
+    $errors = $serviceuser->errors();
+
+    if ($params['password_old'] !== $serviceuser_old->password) {
+      $errors[] = 'The old password was incorrect';
+    }
+
+    if ($params['password2'] !== $params['password']){
+      $errors[] = 'The new passwords don\'t match';
+    }
+
+    if (count($errors) > 0){
+      View::make('/profile.html', array('errors' => $errors));
+    } else {
+      $serviceuser->update();
+      Redirect::to('/profile', array('message' => 'Password changed successfully!'));
     }
   }
 }

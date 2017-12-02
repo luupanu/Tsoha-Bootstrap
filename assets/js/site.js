@@ -56,12 +56,6 @@ $('.editable').keypress(function(e){
   }
 });
 
-// wip JSON
-$('input[id=jsonUpload]').click(function(e){
-  myFile = e.target.files[0];
-  console.log(myFile);
-});
-
 // remove hashtags when focused
 $('.tag').focus(function (){
   this.innerText = this.innerText.replace(/#+/g, '');

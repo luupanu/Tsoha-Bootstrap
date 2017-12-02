@@ -36,6 +36,6 @@
     
 
     public static function sampleLibrary() {
-      View::make('/samplelibrary.html');
+      View::make('/library.html');
     }
   }
