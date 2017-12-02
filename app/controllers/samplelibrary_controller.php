@@ -4,12 +4,12 @@ class SampleLibraryController extends BaseController{
 	public static function index(){
     self::check_logged_in();
     $samples = Sample::all(self::get_user_logged_in()->id);
-    View::make('suunnitelmat/samplelibrary.html', array('samples' => $samples));
+    View::make('/samplelibrary.html', array('samples' => $samples));
 	}
 
   public static function add() {
     self::check_logged_in();
-    View::make('suunnitelmat/add.html');
+    View::make('/add.html');
   }
 
   public static function destroy($id){
@@ -38,7 +38,7 @@ class SampleLibraryController extends BaseController{
     $errors = $sample->errors();
 
     if(count($errors) > 0){
-      View::make('suunnitelmat/add.html', array('errors' => $errors));
+      View::make('/add.html', array('errors' => $errors));
     } else {
       $sample->save();
       Redirect::to('/library');
@@ -66,7 +66,7 @@ class SampleLibraryController extends BaseController{
 
     if(count($errors) > 0){
       $samples = Sample::all(self::get_user_logged_in()->id);
-      View::make('suunnitelmat/samplelibrary.html', array('samples' => $samples, 'errors' => $errors));
+      View::make('/samplelibrary.html', array('samples' => $samples, 'errors' => $errors));
     } else {
       $sample->update();
       Redirect::to('/library', array('message' => 'Sample updated successfully!'));

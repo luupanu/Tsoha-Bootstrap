@@ -9,7 +9,7 @@ class ServiceUserController extends BaseController{
     $serviceuser = ServiceUser::authenticate($params['username'], $params['password']);
 
     if (!$serviceuser){
-      View::make('suunnitelmat/login.html', array('error' => "Wrong username or password.",
+      View::make('/login.html', array('error' => "Wrong username or password.",
         'username' => $params['username']));
     } else {
       $_SESSION['user'] = $serviceuser->id;
@@ -21,7 +21,7 @@ class ServiceUserController extends BaseController{
 
   public static function login() {
     self::check_logged_out();
-    View::make('suunnitelmat/login.html');
+    View::make('/login.html');
   }
 
   public static function logout() {
@@ -31,7 +31,7 @@ class ServiceUserController extends BaseController{
 
   public static function register() {
     self::check_logged_out();
-    View::make('suunnitelmat/register.html');
+    View::make('/register.html');
   }
 
   public static function store(){
@@ -51,7 +51,7 @@ class ServiceUserController extends BaseController{
     }
 
     if (count($errors) > 0){
-      View::make('suunnitelmat/register.html', array('errors' => $errors,
+      View::make('/register.html', array('errors' => $errors,
         'username' => $params['username']));
     } else {
       $serviceuser->save();

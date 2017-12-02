@@ -36,6 +36,6 @@
     
 
     public static function sampleLibrary() {
-      View::make('suunnitelmat/samplelibrary.html');
+      View::make('/samplelibrary.html');
     }
   }
