@@ -1,6 +1,6 @@
 # Sample Manager
 
-[Linkki sovellukseen](https://luupanu.users.cs.helsinki.fi/sampleManager/)
+[Linkki sovellukseen](https://luupanu.users.cs.helsinki.fi/samplemanager/)
 
 ## Työn aihe
 
@@ -14,12 +14,12 @@ Sample Manager on www-sivulla toimiva [samplemanageri](https://en.wikipedia.org/
 
 ## Suunnitellut sivut
 
-* [Etusivu](https://luupanu.users.cs.helsinki.fi/sampleManager/)
-* [Kirjautumissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/login)
-* [Rekisteröitymissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/register)
-* [Listaus/muokkaussivu](https://luupanu.users.cs.helsinki.fi/sampleManager/library)
-* [Lisäämissivu](https://luupanu.users.cs.helsinki.fi/sampleManager/add)
-* [Käyttäjäsivu](https://luupanu.users.cs.helsinki.fi/sampleManager/profile)
+* [Etusivu](https://luupanu.users.cs.helsinki.fi/samplemanager/)
+* [Kirjautumissivu](https://luupanu.users.cs.helsinki.fi/samplemanager/login)
+* [Rekisteröitymissivu](https://luupanu.users.cs.helsinki.fi/samplemanager/register)
+* [Listaus/muokkaussivu](https://luupanu.users.cs.helsinki.fi/samplemanager/library)
+* [Lisäämissivu](https://luupanu.users.cs.helsinki.fi/samplemanager/add)
+* [Käyttäjäsivu](https://luupanu.users.cs.helsinki.fi/samplemanager/profile)
 
 ## Testaus
 
