@@ -40,8 +40,8 @@ $routes->get('/library', function() {
 	SampleLibraryController::index();
 });
 
-$routes->get('/addsamples', function() {
-  SampleLibraryController::addSamples();
+$routes->get('/add', function() {
+  SampleLibraryController::add();
 });
 
 $routes->post('/sample/add', function() {

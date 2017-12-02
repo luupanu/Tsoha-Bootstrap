@@ -7,9 +7,9 @@ class SampleLibraryController extends BaseController{
     View::make('suunnitelmat/samplelibrary.html', array('samples' => $samples));
 	}
 
-  public static function addSamples() {
+  public static function add() {
     self::check_logged_in();
-    View::make('suunnitelmat/addsamples.html');
+    View::make('suunnitelmat/add.html');
   }
 
   public static function destroy($id){
@@ -38,7 +38,7 @@ class SampleLibraryController extends BaseController{
     $errors = $sample->errors();
 
     if(count($errors) > 0){
-      View::make('suunnitelmat/addsamples.html', array('errors' => $errors));
+      View::make('suunnitelmat/add.html', array('errors' => $errors));
     } else {
       $sample->save();
       Redirect::to('/library');
