@@ -7,11 +7,11 @@ class SampleLibraryController extends BaseController{
     View::make('/library.html', array('samples' => $samples));
 	}
 
-  public static function add() {
+  public static function add(){
     self::check_logged_in();
     View::make('/add.html');
   }
-
+  
   public static function destroy($id){
     self::check_logged_in();
     $sample = Sample::find($id);

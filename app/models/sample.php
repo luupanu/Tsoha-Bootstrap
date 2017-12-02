@@ -31,6 +31,16 @@ class Sample extends BaseModel{
 		return self::createSamplesFromRows($rows);
 	}
 
+  public static function countSamples($serviceuser_id){
+    $query = DB::connection()->prepare('
+      SELECT COUNT(*)
+      FROM Sample
+      WHERE serviceuser_id = :serviceuser_id');
+    $query->execute(array('serviceuser_id' => $serviceuser_id));
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    return array_pop($row);
+  }
+
   public function destroy(){
     $query = DB::connection()->prepare('
       DELETE FROM Sample
@@ -66,6 +76,16 @@ class Sample extends BaseModel{
       'comment' => $this->comment));
     $row = $query->fetch();
     $this->id = $row['id'];
+  }
+
+  public static function sumDuration($serviceuser_id){
+    $query = DB::connection()->prepare('
+      SELECT SUM(duration)
+      FROM Sample
+      WHERE serviceuser_id = :serviceuser_id;');
+    $query->execute(array('serviceuser_id' => $serviceuser_id));
+    $row = $query->fetch(PDO::FETCH_ASSOC);
+    return array_pop($row);
   }
 
   public function update(){

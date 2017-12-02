@@ -32,7 +32,15 @@ class ServiceUserController extends BaseController{
 
   public static function profile() {
     self::check_logged_in();
-    View::make('/profile.html');
+    $id = self::get_user_logged_in()->id;
+    $username = self::get_user_logged_in()->name;
+    $samples_total = Sample::countSamples($id);
+    $duration_total = self::buildTimeString(Sample::sumDuration($id));
+
+    View::make('/profile.html', array(
+      'username' => $username,
+      'samples_total' => $samples_total,
+      'duration_total' => $duration_total));
   }
 
   public static function register() {
@@ -94,5 +102,13 @@ class ServiceUserController extends BaseController{
       $serviceuser->update();
       Redirect::to('/profile', array('message' => 'Password changed successfully!'));
     }
+  }
+
+  private static function buildTimeString($seconds){
+    $seconds = (int) $seconds;
+    $hours = intdiv($seconds, 3600);
+    $minutes = intdiv(($seconds - $hours * 3600), 60);
+    $seconds = $seconds - $hours * 3600 - $minutes * 60;
+    return $hours . ' hours ' . $minutes. ' minutes and ' . $seconds . ' seconds';
   }
 }
