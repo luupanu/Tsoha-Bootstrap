@@ -51,14 +51,15 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	<p><b><i>Click on the table cells to edit!</i></b></p>
-	{% if message %}
-		<div class="alert alert-success">
-			<ul>
-				<li>{{message}}</li>
-			</ul>
-		</div>
-	{% endif %}
+	{% for message in messages %}
+		{% if message %}
+			<div class="alert alert-info">
+				<ul>
+					<li>{{message}}</li>
+				</ul>
+			</div>
+		{% endif %}
+	{% endfor %}
 	{% if errors %}
     <div class="alert alert-danger">
       <ul>

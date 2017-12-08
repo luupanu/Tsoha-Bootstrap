@@ -35,7 +35,7 @@ class Project extends BaseModel{
       DELETE FROM project
       WHERE id NOT IN
       (SELECT project_id FROM ProjectSample)
-      OR length(name) < 1');
+      OR name = \'\'');
     $query->execute();
   }
 

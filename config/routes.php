@@ -56,6 +56,10 @@ $routes->post('/sample/add', function() {
   SampleLibraryController::store();
 });
 
+$routes->post('/sample/add/json', function() {
+  SampleLibraryController::storeJsonFile();
+});
+
 $routes->post('/sample/:id/edit', function($id) {
   SampleLibraryController::update($id);
 });

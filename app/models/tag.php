@@ -35,7 +35,7 @@ class Tag extends BaseModel{
       DELETE FROM Tag
       WHERE id NOT IN
       (SELECT tag_id FROM SampleTag)
-      OR length(name) < 1');
+      OR name = \'\'');
     $query->execute();
   }
 

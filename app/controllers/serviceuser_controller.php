@@ -14,8 +14,9 @@ class ServiceUserController extends BaseController{
     } else {
       $_SESSION['user'] = $serviceuser->id;
 
-      Redirect::to('/library', array('message' => 'Welcome back ' . 
-        $serviceuser->name . '!'));
+      $messages = ['Welcome back ' . $serviceuser->name . '!',
+        'Click on the table cells to edit!'];
+      Redirect::to('/library', array('messages' => $messages));
     }
   }
 

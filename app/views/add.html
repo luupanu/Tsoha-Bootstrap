@@ -5,12 +5,14 @@
   </div>
   <!--  WIP, but maybe instead of uploading only select server-side .json 
         files for obvious security reasons...                         -->
-  <form method="post" action="">
+  <form method="post" action="{{base_path}}/sample/add/json">
     <div class="form-group required">
-      <h3>Choose a .json file to upload:</h3>
-      <div class="file-input">
+      <h3>Choose a .json file to read:</h3>
+      <input type="radio" name="file" value="data/small.json" checked> small.json<br>
+      <input type="radio" name="file" value="data/error.json" checked> error.json
+      <!--<div class="file-input">
         <input type="file" class="form-control-lg form-control-file" name="jsonUpload" accept=".json">
-      </div>
+      </div>-->
     </div>
     <button type="" class="btn btn-primary">Upload</button>
   </form>

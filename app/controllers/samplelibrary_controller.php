@@ -19,7 +19,7 @@ class SampleLibraryController extends BaseController{
     Tag::destroy($sample->tags, $id);
     Project::destroy($sample->projects, $id);
 
-    Redirect::to('/library', array('message' => 'Sample removed successfully!'));
+    Redirect::to('/library', array('messages' => 'Sample removed successfully!'));
   }
 
   public static function store(){
@@ -43,6 +43,38 @@ class SampleLibraryController extends BaseController{
       $sample->save();
       Redirect::to('/library');
     }
+  }
+
+  public static function storeJsonFile(){
+    self::check_logged_in();
+
+    $params = $_POST;
+    $file = file_get_contents($params['file']);
+    $json_array = json_decode($file);
+    $serviceuser_id = self::get_user_logged_in()->id;
+    $samples = [];
+
+    foreach ($json_array as $object){
+      preg_match('/(.*\/)(?=(.*)).*/', $object->filename, $matches);
+      $sample = new Sample(array(
+        'serviceuser_id' => $serviceuser_id,
+        'filename' => $object->filename,
+        'duration' => $object->duration
+      ));
+      $samples[] = $sample;
+    }
+
+    $errors = [];
+    foreach ($samples as $sample){
+      $sample->validate();
+      $errors[] = $sample->errors();
+    }
+
+    Kint::dump($errors);
+    /*Kint::dump($samples);
+
+    Kint::dump('path: ' . $matches[0]);
+    Kint::dump('filename: ' . $matches[2]);*/
   }
 
   public static function update($id){
