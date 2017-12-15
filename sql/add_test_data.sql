@@ -19,7 +19,3 @@ INSERT INTO ProjectSample (project_id, sample_id) VALUES (1, 1);
 INSERT INTO ProjectSample (project_id, sample_id) VALUES (1, 2);
 INSERT INTO ProjectSample (project_id, sample_id) VALUES (2, 2);
 INSERT INTO ProjectSample (project_id, sample_id) VALUES (2, 3);
-
-/*INSERT INTO Comment (sample_id, comment) VALUES (1, 'Melekoisen tuulekasta.');
-INSERT INTO Comment (sample_id, comment) VALUES (2, 'Hiiri oli kyllä vihainen.');
-INSERT INTO Comment (sample_id, comment) VALUES (2, 'Tätä voisi käyttää myös projektissa Y.');*/
