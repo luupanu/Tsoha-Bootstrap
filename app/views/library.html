@@ -10,14 +10,16 @@
       </ul>
     </div>
 	{% endif %}-->
-	<form class="form-search">
-		<div class="input-group col-md-4" id="filter-bar">
-			<input type="text" class="form-control input-lg" placeholder="Filter results"/>
-			<div class="input-group-addon"><span class="glyphicon glyphicon-search"/></div>
+	<form method="GET" action="" class="form-search">
+		<div class="input-group" id="filter-bar">
+			<input id="filter" name="filter" value="{{filter}}" type="text" class="form-control input-lg" placeholder="Filter results by tag">
+			<span class="input-group-btn">
+        <button type="submit" class="btn btn-lg btn-info glyphicon glyphicon-search"/>
+      </span>
 		</div>
 	</form>
 
-	<table class="table table-hover" id="myTable">
+	<table class="table table-hover">
 		<thead>
 			<tr id="table-header">
 				<th></th>

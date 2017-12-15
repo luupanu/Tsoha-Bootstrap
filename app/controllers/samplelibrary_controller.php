@@ -3,13 +3,24 @@
 class SampleLibraryController extends BaseController{
 	public static function index(){
     self::check_logged_in();
-    $samples = Sample::all(self::get_user_logged_in()->id);
-    View::make('/library.html', array('samples' => $samples));
+    $params = $_GET;
+    $options = array('serviceuser_id' => self::get_user_logged_in()->id);
+    if (isset($params['filter'])){
+      $options['filter'] = $params['filter'];
+    }
+
+    $samples = Sample::all($options);
+
+    $view_array = array('samples' => $samples);
+    if (isset($params['filter'])) {
+      $view_array['filter'] = $params['filter'];
+    }
+    View::make('library.html', $view_array);
 	}
 
   public static function add(){
     self::check_logged_in();
-    View::make('/add.html');
+    View::make('add.html');
   }
   
   public static function destroy($id){
@@ -38,7 +49,7 @@ class SampleLibraryController extends BaseController{
     $errors = $sample->errors();
 
     if(count($errors) > 0){
-      View::make('/add.html', array('errors' => $errors));
+      View::make('add.html', array('errors' => $errors));
     } else {
       $sample->save();
       Redirect::to('/library');
@@ -53,28 +64,28 @@ class SampleLibraryController extends BaseController{
     $json_array = json_decode($file);
     $serviceuser_id = self::get_user_logged_in()->id;
     $samples = [];
+    $errors = [];
 
     foreach ($json_array as $object){
       preg_match('/(.*\/)(?=(.*)).*/', $object->filename, $matches);
       $sample = new Sample(array(
         'serviceuser_id' => $serviceuser_id,
-        'filename' => $object->filename,
+        'filename' => $matches[2],
         'duration' => $object->duration
       ));
       $samples[] = $sample;
-    }
-
-    $errors = [];
-    foreach ($samples as $sample){
       $sample->validate();
-      $errors[] = $sample->errors();
+      $errors = array_merge($errors, $sample->errors());
     }
 
-    Kint::dump($errors);
-    /*Kint::dump($samples);
-
-    Kint::dump('path: ' . $matches[0]);
-    Kint::dump('filename: ' . $matches[2]);*/
+    if (count($errors) > 0){
+      View::make('add.html', array('errors' => $errors));
+    } else {
+      foreach ($samples as $sample){
+        $sample->save();
+      }
+      Redirect::to('/library');
+    }
   }
 
   public static function update($id){
@@ -97,8 +108,8 @@ class SampleLibraryController extends BaseController{
     $errors = $sample->errors();
 
     if(count($errors) > 0){
-      $samples = Sample::all(self::get_user_logged_in()->id);
-      View::make('/library.html', array('samples' => $samples, 'errors' => $errors));
+      $samples = Sample::all(array('serviceuser_id' => self::get_user_logged_in()->id));
+      View::make('library.html', array('samples' => $samples, 'errors' => $errors));
     } else {
       $sample->update();
       Redirect::to('/library', array('message' => 'Sample updated successfully!'));

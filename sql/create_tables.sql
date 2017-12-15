@@ -1,15 +1,15 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
 CREATE TABLE ServiceUser(
 	id SERIAL PRIMARY KEY,
-	name varchar(16) NOT NULL,
-	password varchar(50) NOT NULL,
+	name varchar(16) NOT NULL UNIQUE,
+	password varchar(255) NOT NULL,
 	superuser boolean DEFAULT FALSE
 );
 
 CREATE TABLE Sample(
 	id SERIAL PRIMARY KEY,
 	serviceuser_id INTEGER REFERENCES ServiceUser(id),
-	filename varchar(260) NOT NULL UNIQUE,
+	filename varchar(260) NOT NULL,
 	name varchar(50),
 	duration DECIMAL(6,2) NOT NULL,
 	comment varchar(140)
@@ -36,9 +36,3 @@ CREATE TABLE ProjectSample(
 	project_id INTEGER NOT NULL REFERENCES Project(id) ON DELETE CASCADE,
 	PRIMARY KEY(sample_id, project_id)
 );
-
-/*CREATE TABLE Comment(
-	id SERIAL PRIMARY KEY,
-	sample_id INTEGER REFERENCES Sample(id),
-	comment varchar(140) NOT NULL
-);*/

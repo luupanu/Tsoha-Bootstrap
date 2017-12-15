@@ -10,18 +10,19 @@
   	}
 
   	public static function authenticate($name, $password){
+      $name = strtolower($name);  // case insensitive select
   		$query = DB::connection()->prepare('
         SELECT * FROM ServiceUser
-        WHERE name = :name AND password = :password
+        WHERE LOWER(name) = :name
         LIMIT 1');
-  		$query->execute(array('name' => $name, 'password' => $password));
+  		$query->execute(array('name' => $name));
   		$row = $query->fetch();
 
-  		if($row){
+  		if($row && password_verify($password, $row['password'])){
   			$serviceuser = new ServiceUser(array(
   				'id' => $row['id'],
   				'name' => $row['name'],
-  				'password' => $row['name'],
+  				'password' => $row['password'],
   				'superuser' => $row['superuser']));
 
   			return $serviceuser;
@@ -29,7 +30,14 @@
   		return null;
   	}
 
-    public static function find($id){
+    public function destroy(){
+      $query = DB::connection()->prepare('
+      DELETE FROM ServiceUser
+      WHERE ServiceUser.id = :id');
+      $query->execute(array('id' => $this->id));
+    }
+
+    public static function findById($id){
       $query = DB::connection()->prepare(
         'SELECT * FROM ServiceUser
         WHERE id = :id
@@ -47,7 +55,26 @@
       return null;
     }
 
+    public static function findByName($name){
+      $name = strtolower($name);  // case insensitive select
+      $query = DB::connection()->prepare(
+        'SELECT * FROM ServiceUser
+        WHERE LOWER(name) = :name');
+      $query->execute(array('name' => $name));
+      $row = $query->fetch();
+      if ($row){
+        $serviceuser = new ServiceUser(array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'password' => $row['password'],
+          'superuser' => $row['superuser']));
+        return $serviceuser;
+      }
+      return null;
+    }
+
     public function save(){
+      $this->password = password_hash($this->password, PASSWORD_DEFAULT);
       $query = DB::connection()->prepare('
         INSERT INTO ServiceUser (name, password)
         VALUES (:name, :password)

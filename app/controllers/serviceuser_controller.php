@@ -2,7 +2,15 @@
 
 class ServiceUserController extends BaseController{
 
-  public static function handle_login() {
+  public static function destroy(){
+    self::check_logged_in();
+    $serviceuser = self::get_user_logged_in();
+    $serviceuser->destroy();
+    $_SESSION['user'] = null;
+    Redirect::to('/', array('message' => 'Account removed successfully!'));
+  }
+
+  public static function handle_login(){
     self::check_logged_out();
     $params = $_POST;
 
@@ -20,18 +28,18 @@ class ServiceUserController extends BaseController{
     }
   }
 
-  public static function login() {
+  public static function login(){
     self::check_logged_out();
     View::make('/login.html');
   }
 
-  public static function logout() {
+  public static function logout(){
     self::check_logged_in();
     $_SESSION['user'] = null;
     Redirect::to('/login', array());
   }
 
-  public static function profile() {
+  public static function profile(){
     self::check_logged_in();
     $id = self::get_user_logged_in()->id;
     $username = self::get_user_logged_in()->name;
@@ -44,7 +52,7 @@ class ServiceUserController extends BaseController{
       'duration_total' => $duration_total));
   }
 
-  public static function register() {
+  public static function register(){
     self::check_logged_out();
     View::make('/register.html');
   }
@@ -60,6 +68,10 @@ class ServiceUserController extends BaseController{
     $serviceuser->validate();
     $errors = $serviceuser->errors();
 
+    if (!is_null(ServiceUser::findByName($params['username']))){
+      $errors[] = 'This username already exists.';
+    }
+
     if ($params['password2'] !== $params['password']){
       $errors[] = 'The passwords don\'t match';
     }
@@ -69,7 +81,10 @@ class ServiceUserController extends BaseController{
         'username' => $params['username']));
     } else {
       $serviceuser->save();
-      Redirect::to('/library');
+      $_SESSION['user'] = $serviceuser->id;
+      $messages = ['Welcome back ' . $serviceuser->name . '!',
+        'Click on the table cells to edit!'];
+      Redirect::to('/library', array('messages' => $messages));
     }
   }
 

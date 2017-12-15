@@ -5,7 +5,7 @@ $(document).ready(function(){
 
   var createLinksForAllTableRows = function(array){
     for (var i = 0; i < array.length; i++){
-      createLinks(array[i]);
+      createLinks(array[i], array[i].innerText);
     }
   };
 
@@ -76,7 +76,7 @@ $('.editable')
     var original = $(this).data('original');
 
     // replace multiple spaces with just one and split
-    var array = string.replace(/\s+/g, ' ').split(' ');
+    var array = string.replace(/\s+/g, ' ').split(' ').filter(x => x);
     // don't allow more characters than limit
     var limit = 50;
     if (this.classList.contains('project')) limit = 140;
@@ -84,7 +84,7 @@ $('.editable')
 
     // return if nothing changed
     if (original === array.join(' ')) {
-      createLinks(this);
+      createLinks(this, this.innerText);
       return;
     }
 
@@ -103,13 +103,31 @@ $('.editable')
     form.submit();
 });
 
-function createLinks(parent){
-  parent.innerText = parent.innerText.trim();
-  if (!parent.classList.contains('tag') && !parent.classList.contains('project')) return;
-  if (!parent.innerText) return;
-  console.log(parent + ' \'' + parent.innerText + '\' ' + parent.innerText.length);
+$('.editable').click(function(e){
+  if (e.target.tagName == 'A'){
+    var array = $('#filter').val().trim().replace(/\s+/g, ' ').split(' ').filter(x => x);
+    var link = e.target.innerText.trim();
+    if (!array.includes(link)) {
+      array.push(link);
+    }
+    console.log(array);
+    $('#filter').val(array.join(' '));
+  }
+});
 
-  array = parent.innerText.split(' ');
+$('#filter').blur(function(e){
+  var string = $('#filter').val();
+  string = string.trim().replace(/\s+/g, ' ');
+  $('#filter').val(string);
+});
+
+function createLinks(parent, innerText){
+  innerText = innerText.trim().replace(/\s+/g, ' ');
+  if (!parent.classList.contains('tag') && !parent.classList.contains('project')) return;
+  if (!innerText || innerText === '') return;
+  console.log(parent + ' \'' + innerText + '\' ' + innerText.length);
+
+  var array = innerText.split(' ').filter(x => x);
   parent.innerText = '';
   var prefix = '';
   if (parent.classList.contains('tag')) {
@@ -118,9 +136,8 @@ function createLinks(parent){
 
   for (var i = 0; i < array.length; i++) {
     var link = document.createElement('a');
-    link.setAttribute('href', '#' + array[i]);
+    link.setAttribute('href', '#');
     link.setAttribute('contenteditable', false);
-    link.setAttribute('onclick', 'event.preventDefault();');
     if (i+1 < array.length){
       link.innerText = prefix + array[i] + ' ';
     } else {

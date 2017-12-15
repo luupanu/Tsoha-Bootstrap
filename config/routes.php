@@ -36,6 +36,10 @@ $routes->post('/profile', function() {
   ServiceUserController::update();
 });
 
+$routes->post('/profile/destroy', function() {
+  ServiceUserController::destroy();
+});
+
 $routes->get('/register', function() {
   ServiceUserController::register();
 });

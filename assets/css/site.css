@@ -33,41 +33,12 @@
   margin-top: 30px;
 }
 
-/*.glyphicon-play {
-  font-size: 10px;
-  color: #EEE8AA;
-}
-
-#table-arrow {
-  opacity: 0;
-}
-
-#table-arrow:hover {
-  opacity: 1;
-}*/
-
 #filter-bar {
   margin-top: 30px;
 }
 
-/*#table-left {
-  background: linear-gradient(to right, #EEE8AA, white);
-}*/
-
-/*#table-row :nth-child(even) {
-  background-color: #EEE8AA;
-}
-
-#table-row :nth-child(odd) {
-  background-color: #EEE8AA;
-}*/
-
 #table-header {
   background-color: #afdcaf;
-}
-
-.file-input {
-
 }
 
 .control-label.required:after {
@@ -76,7 +47,6 @@
   font-size: 16px;
   position: absolute;
   margin-left: 2px;
-  /*top: 7px;*/
 }
 
 h3 {
@@ -86,5 +56,4 @@ h3 {
 
 .i {
   font-weight: normal;
-  /*font-style: italic;*/
 }

@@ -14,7 +14,7 @@
 
   <div>
       <h2>Statistics</h2>
-        <br><p><b>{{username}}</b> has <b>{{samples_total}}</b> samples in the database with a total duration of <b>{{duration_total}}</b>.</p>
+        <p><b>{{username}}</b> has <b>{{samples_total}}</b> samples in the database with a total duration of <b>{{duration_total}}</b>.</p>
   </div>
 
   <div>
@@ -45,4 +45,12 @@
       </ul>
     </div>
   {% endif %}
+  <div>
+      <h2>Remove account</h2>
+      <p>Click the button below to remove your account. <b><u>This action cannot be reversed.</u></b></p>
+  </div>
+
+  <form method="post" action="{{base_path}}/profile/destroy">
+    <button type="submit" class="btn btn-danger">Remove account</button>
+  </form> 
 {% endblock %}

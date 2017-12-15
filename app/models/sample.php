@@ -15,17 +15,36 @@ class Sample extends BaseModel{
     $this->validators = ['validate'];
 	}
 
-	public static function all($serviceuser_id){
-		$query = DB::connection()->prepare('
+	public static function all($options){
+    $query_string = '
       SELECT Sample.id, Sample.serviceuser_id, Sample.filename, Sample.name, Sample.duration, Sample.comment, Tag.name AS tag_name, Project.name AS project_name
       FROM Sample
       LEFT JOIN SampleTag ON SampleTag.sample_id = Sample.id
       LEFT JOIN Tag ON SampleTag.tag_id = Tag.id
       LEFT JOIN ProjectSample ON ProjectSample.sample_id = Sample.id
       LEFT JOIN Project ON ProjectSample.project_id = Project.id
-      WHERE Sample.serviceuser_id = :serviceuser_id
-      ORDER BY Sample.filename ASC, Tag.name ASC, Project.name ASC');
-		$query->execute(array('serviceuser_id' => $serviceuser_id));
+      WHERE Sample.serviceuser_id = :serviceuser_id';
+
+    // filter by tags
+    if (isset($options['filter']) && !empty($options['filter'])){
+      $filters = preg_replace('/([^a-z0-9_åäö\s])/i', '', $options['filter']);
+      $filters = preg_replace('/\s{2,}/', ' ', $filters);
+      $filters = explode(' ', $filters);
+      foreach ($filters as $filter){
+        $query_string .= '
+        AND Sample.id IN
+        (SELECT Sample.id FROM Sample
+        LEFT JOIN SampleTag ON SampleTag.sample_id = Sample.id
+        LEFT JOIN Tag ON SampleTag.tag_id = Tag.id
+        WHERE Tag.name = \'' . array_pop($filters) . '\')';
+      }
+    }
+    $query_string .= '
+      ORDER BY Sample.filename ASC, Tag.name ASC, Project.name ASC';
+
+		$query = DB::connection()->prepare($query_string);
+    $options = array('serviceuser_id' => $options['serviceuser_id']);
+		$query->execute($options);
 		$rows = $query->fetchAll();
 
 		return self::createSamplesFromRows($rows);
