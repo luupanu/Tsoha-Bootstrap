@@ -125,6 +125,31 @@ class Sample extends BaseModel{
     Project::update($this->projects, $this->id);
   }
 
+  public function validate(){
+    $v = new Valitron\Validator(get_object_vars($this));
+    $v->rule('required', ['serviceuser_id', 'filename', 'duration']);
+    $v->rule('integer', 'serviceuser_id');
+    $v->rule('numeric', 'duration');
+    $v->rule('array', ['tags', 'projects']);
+    $v->rule('lengthBetween', ['name', 'tags.*', 'projects.*'], 0, 50);
+    $v->rule('lengthBetween', 'filename', 1, 260);
+    $v->rule('lengthBetween', 'comment', 0, 140);
+    $v->rule('min', 'duration', '0');
+    $v->rule('max', 'duration', '9999');
+    $v->rule('regex', 'tags.*', '/^([a-z0-9_åäö])*$/i')->message('
+      {field} can only contain alphanumeric characters, dashes and underscores');
+    $v->labels(array(
+      'filename' => $this->filename . ': Filename',
+      'name' => $this->filename . ': Name',
+      'duration' => $this->filename . ': Duration',
+      'comment' => $this->filename . ': Comment',
+      'tags.*' => $this->filename . ': Tags',
+      'projects.*' => $this->filename . ': Projects'
+    ));
+    $v->validate();
+    return $v->errors();
+  }
+
   private static function createSamplesFromRows($rows) {
     $samples = [];
     $current_row_id = null; // keeps track of Sample.id
@@ -155,21 +180,5 @@ class Sample extends BaseModel{
       }
     }
     return $samples;
-  }
-
-  public function validate(){
-    $v = new Valitron\Validator(get_object_vars($this));
-    $v->rule('required', ['serviceuser_id', 'filename', 'duration']);
-    $v->rule('integer', 'serviceuser_id');
-    $v->rule('numeric', 'duration');
-    $v->rule('array', ['tags', 'projects']);
-    $v->rule('lengthBetween', ['name', 'tags.*', 'projects.*'], 0, 50);
-    $v->rule('lengthBetween', 'filename', 1, 260);
-    $v->rule('lengthBetween', 'comment', 0, 140);
-    $v->rule('min', 'duration', '0');
-    $v->rule('max', 'duration', '9999');
-    $v->rule('regex', 'tags.*', '/^([a-z0-9_åäö])*$/i');
-    $v->validate();
-    return $v->errors();
   }
 }

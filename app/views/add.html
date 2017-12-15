@@ -1,23 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
+  {% if files %}
   <div class="page-header">
     <h1>Add multiple samples</h1>
   </div>
-  <!--  WIP, but maybe instead of uploading only select server-side .json 
-        files for obvious security reasons...                         -->
   <form method="post" action="{{base_path}}/sample/add/json">
     <div class="form-group required">
       <h3>Choose a .json file to read:</h3>
-      <input type="radio" name="file" value="data/small.json" checked> small.json<br>
-      <input type="radio" name="file" value="data/error.json" checked> error.json<br>
-      <input type="radio" name="file" value="data/samples.json" checked> samples.json<br>
-      <!--<div class="file-input">
-        <input type="file" class="form-control-lg form-control-file" name="jsonUpload" accept=".json">
-      </div>-->
+        {% for file in files %}
+          <input type="radio" name="file" value="{{file}}" checked> {{file|replace({'data/': ''})}}<br>
+        {% endfor %}
     </div>
-    <button type="" class="btn btn-primary">Upload</button>
+    <button type="" class="btn btn-primary">Submit</button>
   </form>
-  <!-- -->
+  {% endif %}
   
   <div class="page-header">
         <h1>Add a single sample</h1>

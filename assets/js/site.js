@@ -77,10 +77,6 @@ $('.editable')
 
     // replace multiple spaces with just one and split
     var array = string.replace(/\s+/g, ' ').split(' ').filter(x => x);
-    // don't allow more characters than limit
-    var limit = 50;
-    if (this.classList.contains('project')) limit = 140;
-    array = array.filter(s => s.length <= limit);
 
     // return if nothing changed
     if (original === array.join(' ')) {

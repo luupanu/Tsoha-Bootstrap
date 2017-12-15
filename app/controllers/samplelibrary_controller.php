@@ -20,7 +20,7 @@ class SampleLibraryController extends BaseController{
 
   public static function add(){
     self::check_logged_in();
-    View::make('add.html');
+    View::make('add.html', array('files' => glob('data/*.json')));
   }
   
   public static function destroy($id){
@@ -67,22 +67,29 @@ class SampleLibraryController extends BaseController{
     $errors = [];
 
     foreach ($json_array as $object){
-      preg_match('/(.*\/)(?=(.*)).*/', $object->filename, $matches);
-      $sample = new Sample(array(
-        'serviceuser_id' => $serviceuser_id,
-        'filename' => $matches[2],
-        'duration' => $object->duration
-      ));
+      $sample = new Sample(array('serviceuser_id' => $serviceuser_id));
+      foreach ($object as $key => $value){
+        if (property_exists('Sample', $key)){
+          if ($key === 'filename'){
+            preg_match('/(.*\/)(?=(.*)).*/', $object->filename, $matches);
+            $sample->$key = $matches[2];
+          } else {
+            $sample->$key = $object->$key;
+          }
+        }
+      }
       $samples[] = $sample;
       $sample->validate();
       $errors = array_merge($errors, $sample->errors());
     }
 
     if (count($errors) > 0){
-      View::make('add.html', array('errors' => $errors));
+      View::make('add.html', array('files' => glob('data/*.json'), 'errors' => $errors));
     } else {
       foreach ($samples as $sample){
         $sample->save();
+        empty($sample->tags) ?: Tag::update($sample->tags, $sample->id);
+        empty($sample->projects) ?: Project::update($sample->projects, $sample->id);
       }
       Redirect::to('/library');
     }

@@ -41,6 +41,10 @@
   background-color: #afdcaf;
 }
 
+#table-header-admin {
+  background-color: #fcef8b;
+}
+
 .control-label.required:after {
   color: #d00;
   content: "*";
@@ -52,8 +56,4 @@
 h3 {
   margin-top: 30px;
   margin-bottom: 20px;
-}
-
-.i {
-  font-weight: normal;
 }

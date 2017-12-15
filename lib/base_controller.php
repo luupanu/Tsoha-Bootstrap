@@ -2,12 +2,13 @@
 
   class BaseController{
 
-    public static function get_user_logged_in(){
-      if (isset($_SESSION['user'])){
-        $id = $_SESSION['user'];
-        return ServiceUser::findById($id);
+    public static function check_is_admin(){
+      $serviceuser = self::get_user_logged_in();
+      if (is_null($serviceuser)) {
+        Redirect::to('/login');
+      } else if (!$serviceuser->superuser){
+        Redirect::to('/');
       }
-      return null;
     }
 
     public static function check_logged_in(){
@@ -22,7 +23,17 @@
       }
     }
 
-    public static function get_current_page(){
-      return $this->getRequest()->getRequestUri();
+    public static function get_is_admin(){
+      $serviceuser = self::get_user_logged_in();
+      if (is_null($serviceuser)) return false;
+      return $serviceuser->superuser;
+    }
+
+    public static function get_user_logged_in(){
+      if (isset($_SESSION['user'])){
+        $id = $_SESSION['user'];
+        return ServiceUser::findById($id);
+      }
+      return null;
     }
   }

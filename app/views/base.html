@@ -45,6 +45,9 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             {% if user_logged_in %}
+              {% if user_is_admin %}
+                <li><a href="{{base_path}}/admin"><b>Admin panel</b></a></li>
+              {% endif %}
               <li><a href="{{base_path}}/profile">Logged in as <b>{{user_logged_in.name}}</b></a></li>
               <li>
                 <form class="navbar-form" method="post" action="{{base_path}}/logout">

@@ -1,10 +1,17 @@
 [
   {
     "filename": "./Abletonista/feedback x.aif",
-    "duration": "13.712653"
+    "duration": "13.712653",
+    "name": "Feedback",
+    "tags": ["test", "this", "out"],
+    "comment": "watch out",
+    "projects": ["secret_project", "project_x"]
   },
   {
     "filename": "./teenagesta/xylofooni/xylofooni_pitka_sample.aif",
-    "duration": "92.627302"
+    "duration": "92.627302",
+    "tags": ["xylo"],
+    "höpöhöpöä": "toimiiko?",
+    "projects": ["projekti"]
   }
 ]

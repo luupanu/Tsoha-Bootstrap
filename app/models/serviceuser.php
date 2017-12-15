@@ -9,6 +9,22 @@
       $this->validators = ['validate'];
   	}
 
+    public static function all(){
+      $query = DB::connection()->prepare('
+        SELECT * FROM ServiceUser');
+      $query->execute();
+      $rows = $query->fetchAll();
+      $serviceusers = [];
+
+      foreach ($rows as $row){
+        $serviceusers[] = new ServiceUser(array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'superuser' => $row['superuser']));
+      }
+      return $serviceusers;
+    }
+
   	public static function authenticate($name, $password){
       $name = strtolower($name);  // case insensitive select
   		$query = DB::connection()->prepare('

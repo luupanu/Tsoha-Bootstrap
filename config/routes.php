@@ -12,8 +12,16 @@ $routes->get('/', function() {
   ServiceUserController::login();
 });
 
-$routes->get('/hiekkalaatikko', function() {
-  HelloWorldController::sandbox();
+$routes->get('/add', function() {
+  SampleLibraryController::add();
+});
+
+$routes->get('/admin', function() {
+  ServiceUserController::admin();
+});
+
+$routes->get('/library', function() {
+  SampleLibraryController::index();
 });
 
 $routes->get('/login', function() {
@@ -48,14 +56,6 @@ $routes->post('/register', function() {
   ServiceUserController::store();
 });
 
-$routes->get('/library', function() {
-	SampleLibraryController::index();
-});
-
-$routes->get('/add', function() {
-  SampleLibraryController::add();
-});
-
 $routes->post('/sample/add', function() {
   SampleLibraryController::store();
 });
@@ -70,4 +70,8 @@ $routes->post('/sample/:id/edit', function($id) {
 
 $routes->post('/sample/:id/destroy', function($id) {
   SampleLibraryController::destroy($id);
+});
+
+$routes->post('/user/:id/destroy', function($id) {
+  ServiceUserController::destroyById($id);
 });

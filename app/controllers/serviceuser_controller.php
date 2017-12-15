@@ -2,12 +2,30 @@
 
 class ServiceUserController extends BaseController{
 
+  public static function admin(){
+    self::check_is_admin();
+    $serviceusers = ServiceUser::all();
+    View::make('/admin.html', array('users' => $serviceusers));
+  }
+
   public static function destroy(){
     self::check_logged_in();
     $serviceuser = self::get_user_logged_in();
     $serviceuser->destroy();
     $_SESSION['user'] = null;
     Redirect::to('/', array('message' => 'Account removed successfully!'));
+  }
+
+  public static function destroyById($id){
+    self::check_logged_in();
+    $serviceuser = ServiceUser::findById($id);
+    $serviceuser->destroy();
+    if ($serviceuser->id === $_SESSION['user']){
+      $_SESSION['user'] = null;
+      Redirect::to('/login');
+    } else {
+      Redirect::to('/admin', array('message' => 'Account removed successfully!'));
+    }
   }
 
   public static function handle_login(){

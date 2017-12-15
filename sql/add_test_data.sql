@@ -1,9 +1,10 @@
 -- Lisää INSERT INTO lauseet tähän tiedostoon
+INSERT INTO ServiceUser (name, password, superuser) VALUES ('root', '$2y$10$qKjEy8fuBAfmodR3OMWsh.Mi0/mnkGzbN8458HGck7wBD1fJvuE3y', 'true'); -- 
 INSERT INTO ServiceUser (name, password) VALUES ('MikkoMies', '$2y$10$QvtOEwpSKBAjiSa1NqIPj.FrMsQ7rXR.d/IxXuYTuQ0jFZd8Qfdku'); -- 'zalazana'
 INSERT INTO ServiceUser (name, password) VALUES ('Maikkeli', '$2y$10$CDWcYmE0v1kG7ZrVKAdCMup813lE3yJbhhe2i9gBt.TCXNOLow0LO'); -- 'salasana'
-INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (1, 'sample1.wav', 'Tuulen tuhinaa', 16.4, 'Melekoisen tuulekasta.');
-INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (1, 'sample2.wav', 'Hiiren kihinää', 9.6, 'Hiiri oli kyllä vihainen.');
-INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (2, 'sample3.wav', 'Kovaa kamaa', 4.4, 'Homma on pihvi.');
+INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (2, 'sample1.wav', 'Tuulen tuhinaa', 16.4, 'Melekoisen tuulekasta.');
+INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (2, 'sample2.wav', 'Hiiren kihinää', 9.6, 'Hiiri oli kyllä vihainen.');
+INSERT INTO Sample (serviceuser_id, filename, name, duration, comment) VALUES (3, 'sample3.wav', 'Kovaa kamaa', 4.4, 'Homma on pihvi.');
 INSERT INTO Tag (name) VALUES ('bass');
 INSERT INTO Tag (name) VALUES ('luonto');
 INSERT INTO Tag (name) VALUES ('jeah');

@@ -18,6 +18,10 @@
           $content['user_logged_in'] = BaseController::get_user_logged_in();
         }
 
+        if(method_exists('BaseController', 'get_is_admin')){
+          $content['user_is_admin'] = BaseController::get_is_admin();
+        }
+
         // Tulostetaan Twig:n renderöimä näkymä
         echo $twig->render($view, $content);
       } catch (Exception $e){
