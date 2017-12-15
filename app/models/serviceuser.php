@@ -87,16 +87,14 @@
     }
 
     public function update(){
+      $this->password = password_hash($this->password, PASSWORD_DEFAULT);
       $query = DB::connection()->prepare('
         UPDATE ServiceUser
-        SET id = :id, name = :name, password = :password, superuser = :superuser
+        SET name = :name, password = :password
         WHERE id = :id');
       $query->execute(array(
-        'id' => $this->id,
         'name' => $this->name,
-        'password' => $this->password,
-        'superuser' => $this->superuser,
-      ));
+        'password' => $this->password));
     }
 
     public function validate(){

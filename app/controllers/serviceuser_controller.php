@@ -93,7 +93,7 @@ class ServiceUserController extends BaseController{
     $params = $_POST;
     $id = self::get_user_logged_in()->id;
     
-    $serviceuser_old = ServiceUser::find($id);
+    $serviceuser_old = ServiceUser::findById($id);
 
     $serviceuser = new ServiceUser(array(
       'id' => $id,
@@ -104,7 +104,7 @@ class ServiceUserController extends BaseController{
     $serviceuser->validate();
     $errors = $serviceuser->errors();
 
-    if ($params['password_old'] !== $serviceuser_old->password) {
+    if (!password_verify($params['password_old'], $serviceuser_old->password)) {
       $errors[] = 'The old password was incorrect';
     }
 

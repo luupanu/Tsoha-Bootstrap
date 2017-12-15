@@ -8,7 +8,7 @@ CREATE TABLE ServiceUser(
 
 CREATE TABLE Sample(
 	id SERIAL PRIMARY KEY,
-	serviceuser_id INTEGER REFERENCES ServiceUser(id),
+	serviceuser_id INTEGER NOT NULL REFERENCES ServiceUser(id) ON DELETE CASCADE,
 	filename varchar(260) NOT NULL,
 	name varchar(50),
 	duration DECIMAL(6,2) NOT NULL,
